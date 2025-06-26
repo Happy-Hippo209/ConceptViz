@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConceptViz: A Visual Analytics Approach for Exploring Concepts in Large Language Models</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin: 2rem 0;
+            border-radius: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            margin: 2rem 0;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            padding: 3rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .section h3 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+            color: #444;
+        }
+
+        /* System Overview */
+        .system-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .workflow-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .workflow-step h4 {
+            margin: 1rem 0;
+            color: #667eea;
+        }
+
+        /* Image Placeholder */
+        .image-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            color: #888;
+        }
+
+        .image-placeholder:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        /* Paper Info */
+        .paper-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .paper-info h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .paper-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .meta-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .meta-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Authors */
+        .authors {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .author-list {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .workflow {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">ConceptViz</div>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#system">System</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#paper">Paper</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>ConceptViz</h1>
+            <p>A Visual Analytics Approach for Exploring Concepts in Large Language Models</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Try Demo</a>
+                <a href="#" class="btn btn-secondary">View Paper</a>
+                <a href="#" class="btn btn-secondary">GitHub</a>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Abstract -->
+            <section id="overview" class="section">
+                <h2>Overview</h2>
+                <p style="font-size: 1.1rem; text-align: justify; margin-bottom: 2rem;">
+                    Large language models (LLMs) have achieved remarkable performance across a wide range of natural language tasks. 
+                    Understanding how LLMs internally represent knowledge remains a significant challenge. Despite Sparse Autoencoders (SAEs) 
+                    have emerged as a promising technique for extracting interpretable features from LLMs, SAE features do not inherently 
+                    align with human-understandable concepts, making their interpretation cumbersome and labor-intensive.
+                </p>
+                
+                <div class="image-placeholder">
+                    <h3>📊 System Architecture Diagram</h3>
+                    <p>Replace this with your system overview figure (Fig. 1 from paper)</p>
+                </div>
+
+                <p style="font-size: 1.1rem; text-align: justify;">
+                    To bridge the gap between SAE features and human concepts, we present <strong>ConceptViz</strong>, a visual analytics system 
+                    designed for exploring concepts in LLMs. ConceptViz implements a novel <em>Identification ⇒ Interpretation ⇒ Validation</em> 
+                    pipeline, enabling users to query SAEs using concepts of interest, interactively explore concept-to-feature alignments, 
+                    and validate the correspondences through model behavior verification.
+                </p>
+            </section>
+
+            <!-- System Features -->
+            <section id="system" class="section">
+                <h2>System Features</h2>
+                
+                <div class="system-overview">
+                    <div class="feature-card">
+                        <h4>🔍 Concept Query View</h4>
+                        <p>Build and refine concept queries with natural language descriptions and automated optimization suggestions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎯 SAE Discovery View</h4>
+                        <p>Identify the most relevant SAE models across different network layers based on concept-relevance metrics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🗺️ Feature Explorer View</h4>
+                        <p>Navigate thousands of features in a 2D semantic space with hierarchical clustering and topic modeling.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔬 Feature Details View</h4>
+                        <p>Examine detailed semantic information through vocabulary projections and activation pattern analysis.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ Input Activation View</h4>
+                        <p>Verify feature responses to custom inputs and discover functionally related feature sets.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎛️ Output Steering View</h4>
+                        <p>Observe causal relationships by manipulating feature activations and analyzing output changes.</p>
+                    </div>
+                </div>
+
+                <h3>Identification ⇒ Interpretation ⇒ Validation Workflow</h3>
+                <div class="workflow">
+                    <div class="workflow-step" data-step="1">
+                        <h4>Identification</h4>
+                        <p>Query optimization and concept-based SAE model discovery to identify the most relevant representations.</p>
+                    </div>
+                    <div class="workflow-step" data-step="2">
+                        <h4>Interpretation</h4>
+                        <p>Global feature visualization and detailed semantic interpretation to understand concept-feature alignments.</p>
+                    </div>
+                    <div class="workflow-step" data-step="3">
+                        <h4>Validation</h4>
+                        <p>Interactive verification through custom inputs and causal analysis via activation steering.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Approach -->
+            <section class="section">
+                <h2>Technical Approach</h2>
+                
+                <div class="image-placeholder">
+                    <h3>🔧 Technical Pipeline Diagram</h3>
+                    <p>Replace this with your technical methods figure (Fig. 3 from paper)</p>
+                </div>
+
+                <h3>Key Innovations</h3>
+                <ul style="font-size: 1.1rem; line-height: 1.8; margin-left: 2rem;">
+                    <li><strong>Concept-based SAE Model Retrieval:</strong> Multi-threshold ranking approach using semantic similarity to identify relevant SAE models</li>
+                    <li><strong>Hierarchical Feature Organization:</strong> UMAP dimensionality reduction with agglomerative clustering and topic extraction</li>
+                    <li><strong>Activation-Similarity Matrix:</strong> Novel visualization to identify discrepancies between feature explanations and actual behavior</li>
+                    <li><strong>Interactive Validation:</strong> Custom input analysis and causal verification through activation steering</li>
+                </ul>
+            </section>
+
+            <!-- Usage Scenarios -->
+            <section class="section">
+                <h2>Usage Scenarios</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px;">
+                        <h4 style="color: #667eea; margin-bottom: 1rem;">🌱 Exploring Plant-Related Features</h4>
+                        <p>Demonstrates how ConceptViz helps users understand concept-feature semantic associations, revealing nuanced activation patterns beyond automated explanations.</p>
+                        <div class="image-placeholder" style="margin-top: 1rem; padding: 1rem;">
+                            <p>Plant scenario figure (Fig. 4)</p>
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px;">
+                        <h4 style="color: #667eea; margin-bottom: 1rem;">😢 Disappointment and Sadness Features</h4>
+                        <p>Showcases the system's ability to distinguish semantically coherent features from coincidental activations in emotional expression analysis.</p>
+                        <div class="image-placeholder" style="margin-top: 1rem; padding: 1rem;">
+                            <p>Emotion scenario figure (Fig. 6)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results -->
+            <section id="results" class="section">
+                <h2>Evaluation Results</h2>
+                
+                <div class="image-placeholder">
+                    <h3>📈 User Study Results</h3>
+                    <p>Replace this with your user study results figure (Fig. 7 from paper)</p>
+                </div>
+
+                <h3>Key Findings</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #4caf50;">
+                        <strong>Effectiveness</strong>
+                        <p>Users successfully identified and validated meaningful features, with high ratings for all system components.</p>
+                    </div>
+                    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #2196f3;">
+                        <strong>Usability</strong>
+                        <p>Average score of 4.5/5 for system usability, with participants finding the workflow intuitive and engaging.</p>
+                    </div>
+                    <div style="background: #fff3e0; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #ff9800;">
+                        <strong>Discovery</strong>
+                        <p>Interactive exploration facilitated serendipitous discovery of unexpected feature properties and behaviors.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Paper Information -->
+            <section id="paper" class="section">
+                <div class="paper-info">
+                    <h3>📄 Paper Information</h3>
+                    <div class="paper-meta">
+                        <div class="meta-item">
+                            <strong>Conference:</strong>
+                            IEEE VIS 2025 (Submission)
+                        </div>
+                        <div class="meta-item">
+                            <strong>Category:</strong>
+                            Research - Application/Design Study
+                        </div>
+                        <div class="meta-item">
+                            <strong>Keywords:</strong>
+                            LLMs, Interpretability, Visual Analytics
+                        </div>
+                        <div class="meta-item">
+                            <strong>Submission ID:</strong>
+                            1254
+                        </div>
+                    </div>
+                </div>
+
+                <div class="authors">
+                    <h3>Authors</h3>
+                    <p class="author-list">
+                        <!-- 在这里添加你的作者信息 -->
+                        [Author Names] - [Institution]
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <a href="#" class="btn btn-primary">Download Paper</a>
+                    <a href="#" class="btn btn-secondary">View Supplementary Materials</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer container">
+        <p>&copy; 2025 ConceptViz. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#" style="color: #667eea; margin: 0 1rem;">GitHub</a>
+            <a href="#" style="color: #667eea; margin: 0 1rem;">Paper</a>
+            <a href="#" style="color: #667eea; margin: 0 1rem;">Contact</a>
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation effect
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
