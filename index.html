@@ -770,9 +770,7 @@ npm run dev
     <footer class="footer container">
         <p>&copy; 2025 ConceptViz User Guide. For more information, see the project README.</p>
         <p style="margin-top: 0.5rem;">
-            <a href="#" style="color: #667eea; margin: 0 1rem;">GitHub Repository</a>
-            <a href="#" style="color: #667eea; margin: 0 1rem;">Report Issues</a>
-            <a href="#" style="color: #667eea; margin: 0 1rem;">Documentation</a>
+            <a href="https://github.com/Happy-Hippo209/ConceptViz" target="_blank" style="color: #667eea; margin: 0 1rem;">GitHub Repository</a>
         </p>
     </footer>
 
@@ -791,10 +789,9 @@ npm run dev
             });
         });
 
-        // Add scroll animation effect
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: [0, 0.1, 0.2],
+            rootMargin: '50px 0px -20px 0px' 
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -802,14 +799,27 @@ npm run dev
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.section').forEach(section => {
+        const isMobile = window.innerWidth <= 768;
+        
+        document.querySelectorAll('.section').forEach((section, index) => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            
+            if (isMobile) {
+                setTimeout(() => {
+                    if (section.style.opacity === '0') {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }
+                }, 500 + index * 200); 
+            }
+            
             observer.observe(section);
         });
 
@@ -822,16 +832,22 @@ npm run dev
             // You can add a progress bar here if needed
         }
 
-        // Highlight current step in navigation
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            const steps = document.querySelectorAll('[id^="step"]');
-            steps.forEach((step, index) => {
-                const rect = step.getBoundingClientRect();
-                if (rect.top <= 100 && rect.bottom > 100) {
-                    currentStep = index + 1;
-                    updateProgress();
-                }
-            });
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            
+            scrollTimeout = setTimeout(() => {
+                const steps = document.querySelectorAll('[id^="step"]');
+                steps.forEach((step, index) => {
+                    const rect = step.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom > 100) {
+                        currentStep = index + 1;
+                        updateProgress();
+                    }
+                });
+            }, 50); 
         });
     </script>
 </body>
