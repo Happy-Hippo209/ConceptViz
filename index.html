@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConceptViz: A Visual Analytics Approach for Exploring Concepts in Large Language Models</title>
+    <title>ConceptViz: User Guide & Tutorial</title>
     <style>
         * {
             margin: 0;
@@ -91,7 +91,7 @@
             opacity: 0.9;
         }
 
-        .cta-buttons {
+        .quick-nav {
             display: flex;
             gap: 1rem;
             justify-content: center;
@@ -155,130 +155,200 @@
             color: #444;
         }
 
-        /* System Overview */
-        .system-overview {
+        .section h4 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem 0;
+            color: #667eea;
+        }
+
+        /* Step Cards */
+        .step-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
             margin: 2rem 0;
         }
 
-        .feature-card {
+        .step-card {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 2rem;
             border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Workflow Steps */
-        .workflow {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .workflow-step {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            padding: 2rem;
-            background: #f8f9fa;
-            border-radius: 15px;
             position: relative;
         }
 
-        .workflow-step::before {
-            content: attr(data-step);
+        .step-number {
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 12px;
+            left: 12px;
             width: 40px;
             height: 40px;
-            background: #667eea;
+            background: #ff6b6b;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.2rem;
         }
 
-        .workflow-step h4 {
+        .step-card h4 {
             margin: 1rem 0;
-            color: #667eea;
-        }
-
-        /* Image Placeholder */
-        .image-placeholder {
-            background: #f0f0f0;
-            border: 2px dashed #ccc;
-            border-radius: 10px;
-            padding: 3rem;
-            text-align: center;
-            margin: 2rem 0;
-            color: #888;
-        }
-
-        .image-placeholder:hover {
-            border-color: #667eea;
-            color: #667eea;
-        }
-
-        /* Paper Info */
-        .paper-info {
-            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+        }
+
+        /* Tutorial Steps */
+        .tutorial-step {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #667eea;
+            position: relative;
+        }
+
+        .tutorial-step h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .substeps {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        .substeps li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        /* Media containers */
+        .media-container {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .media-container video {
+            max-width: 800px; 
+            max-height: 600px; 
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: contain; 
+        }
+
+        .media-container img {
+            max-width: 800px;  
+            max-height: 600px; 
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: contain; 
+        }
+
+        .media-caption {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            overflow: hidden; /* 防止内容溢出 */
+        }
+
+        .comparison-item img {
+            max-width: 100%;
+            max-height: 400px; /* 限制高度 */
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: contain; /* 保持长宽比 */
+        }
+
+        /* Tips and Notes */
+        .tip-box {
+            background: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .note-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+            white-space: pre-line;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f8f9fa;
             padding: 2rem;
             border-radius: 15px;
             margin: 2rem 0;
         }
 
-        .paper-info h3 {
-            color: white;
-            margin-bottom: 1rem;
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
         }
 
-        .paper-meta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
+        .toc li {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
         }
 
-        .meta-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
+        .toc a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
         }
 
-        .meta-item strong {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Authors */
-        .authors {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .author-list {
-            font-size: 1.1rem;
-            color: #666;
+        .toc a:hover {
+            text-decoration: underline;
         }
 
         /* Footer */
@@ -305,9 +375,16 @@
                 padding: 2rem 1rem;
             }
 
-            .workflow {
-                flex-direction: column;
+            .step-container {
+                grid-template-columns: 1fr;
             }
+
+            .comparison-container {
+                grid-template-columns: 1fr; 
+            }
+            
+            .comparison-item img {
+                max-height: 300px;
         }
 
         /* Animations */
@@ -331,12 +408,11 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav container">
-            <div class="logo">ConceptViz</div>
+            <div class="logo">ConceptViz User Guide</div>
             <ul class="nav-links">
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#system">System</a></li>
-                <li><a href="#results">Results</a></li>
-                <li><a href="#paper">Paper</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#tutorial">Tutorial</a></li>
+                <li><a href="#troubleshooting">Help</a></li>
             </ul>
         </nav>
     </header>
@@ -344,189 +420,347 @@
     <div class="container">
         <!-- Hero Section -->
         <section class="hero">
-            <h1>ConceptViz</h1>
-            <p>A Visual Analytics Approach for Exploring Concepts in Large Language Models</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">Try Demo</a>
-                <a href="#" class="btn btn-secondary">View Paper</a>
-                <a href="#" class="btn btn-secondary">GitHub</a>
+            <h1>ConceptViz User Guide</h1>
+            <p>Complete tutorial for exploring concepts in Large Language Models</p>
+            <div class="quick-nav">
+                <a href="#setup" class="btn btn-primary">Quick Start</a>
+                <a href="#tutorial" class="btn btn-secondary">Step-by-Step Tutorial</a>
             </div>
         </section>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Abstract -->
-            <section id="overview" class="section">
-                <h2>Overview</h2>
-                <p style="font-size: 1.1rem; text-align: justify; margin-bottom: 2rem;">
-                    Large language models (LLMs) have achieved remarkable performance across a wide range of natural language tasks. 
-                    Understanding how LLMs internally represent knowledge remains a significant challenge. Despite Sparse Autoencoders (SAEs) 
-                    have emerged as a promising technique for extracting interpretable features from LLMs, SAE features do not inherently 
-                    align with human-understandable concepts, making their interpretation cumbersome and labor-intensive.
-                </p>
-                
-                <div class="image-placeholder">
-                    <h3>📊 System Architecture Diagram</h3>
-                    <p>Replace this with your system overview figure (Fig. 1 from paper)</p>
-                </div>
-
-                <p style="font-size: 1.1rem; text-align: justify;">
-                    To bridge the gap between SAE features and human concepts, we present <strong>ConceptViz</strong>, a visual analytics system 
-                    designed for exploring concepts in LLMs. ConceptViz implements a novel <em>Identification ⇒ Interpretation ⇒ Validation</em> 
-                    pipeline, enabling users to query SAEs using concepts of interest, interactively explore concept-to-feature alignments, 
-                    and validate the correspondences through model behavior verification.
-                </p>
-            </section>
-
-            <!-- System Features -->
-            <section id="system" class="section">
-                <h2>System Features</h2>
-                
-                <div class="system-overview">
-                    <div class="feature-card">
-                        <h4>🔍 Concept Query View</h4>
-                        <p>Build and refine concept queries with natural language descriptions and automated optimization suggestions.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🎯 SAE Discovery View</h4>
-                        <p>Identify the most relevant SAE models across different network layers based on concept-relevance metrics.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🗺️ Feature Explorer View</h4>
-                        <p>Navigate thousands of features in a 2D semantic space with hierarchical clustering and topic modeling.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🔬 Feature Details View</h4>
-                        <p>Examine detailed semantic information through vocabulary projections and activation pattern analysis.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>⚡ Input Activation View</h4>
-                        <p>Verify feature responses to custom inputs and discover functionally related feature sets.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🎛️ Output Steering View</h4>
-                        <p>Observe causal relationships by manipulating feature activations and analyzing output changes.</p>
-                    </div>
-                </div>
-
-                <h3>Identification ⇒ Interpretation ⇒ Validation Workflow</h3>
-                <div class="workflow">
-                    <div class="workflow-step" data-step="1">
-                        <h4>Identification</h4>
-                        <p>Query optimization and concept-based SAE model discovery to identify the most relevant representations.</p>
-                    </div>
-                    <div class="workflow-step" data-step="2">
-                        <h4>Interpretation</h4>
-                        <p>Global feature visualization and detailed semantic interpretation to understand concept-feature alignments.</p>
-                    </div>
-                    <div class="workflow-step" data-step="3">
-                        <h4>Validation</h4>
-                        <p>Interactive verification through custom inputs and causal analysis via activation steering.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Technical Approach -->
+            <!-- Table of Contents -->
             <section class="section">
-                <h2>Technical Approach</h2>
-                
-                <div class="image-placeholder">
-                    <h3>🔧 Technical Pipeline Diagram</h3>
-                    <p>Replace this with your technical methods figure (Fig. 3 from paper)</p>
-                </div>
-
-                <h3>Key Innovations</h3>
-                <ul style="font-size: 1.1rem; line-height: 1.8; margin-left: 2rem;">
-                    <li><strong>Concept-based SAE Model Retrieval:</strong> Multi-threshold ranking approach using semantic similarity to identify relevant SAE models</li>
-                    <li><strong>Hierarchical Feature Organization:</strong> UMAP dimensionality reduction with agglomerative clustering and topic extraction</li>
-                    <li><strong>Activation-Similarity Matrix:</strong> Novel visualization to identify discrepancies between feature explanations and actual behavior</li>
-                    <li><strong>Interactive Validation:</strong> Custom input analysis and causal verification through activation steering</li>
-                </ul>
-            </section>
-
-            <!-- Usage Scenarios -->
-            <section class="section">
-                <h2>Usage Scenarios</h2>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
-                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px;">
-                        <h4 style="color: #667eea; margin-bottom: 1rem;">🌱 Exploring Plant-Related Features</h4>
-                        <p>Demonstrates how ConceptViz helps users understand concept-feature semantic associations, revealing nuanced activation patterns beyond automated explanations.</p>
-                        <div class="image-placeholder" style="margin-top: 1rem; padding: 1rem;">
-                            <p>Plant scenario figure (Fig. 4)</p>
-                        </div>
-                    </div>
-                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px;">
-                        <h4 style="color: #667eea; margin-bottom: 1rem;">😢 Disappointment and Sadness Features</h4>
-                        <p>Showcases the system's ability to distinguish semantically coherent features from coincidental activations in emotional expression analysis.</p>
-                        <div class="image-placeholder" style="margin-top: 1rem; padding: 1rem;">
-                            <p>Emotion scenario figure (Fig. 6)</p>
-                        </div>
-                    </div>
+                <h2>📋 Table of Contents</h2>
+                <div class="toc">
+                    <ul>
+                        <li><a href="#setup">🚀 Getting Started & Setup</a></li>
+                        <li><a href="#tutorial">📖 Step-by-Step Tutorial: Exploring Superhero Features</a>
+                            <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                                <li><a href="#step1">Step 1: Concept Query</a></li>
+                                <li><a href="#step2">Step 2: SAE Discovery</a></li>
+                                <li><a href="#step3">Step 3: Feature Exploration</a></li>
+                                <li><a href="#step4">Step 4: Feature Analysis</a></li>
+                                <li><a href="#step5">Step 5: Input Testing</a></li>
+                                <li><a href="#step6">Step 6: Output Steering</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#troubleshooting">🆘 Troubleshooting</a></li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- Results -->
-            <section id="results" class="section">
-                <h2>Evaluation Results</h2>
+            <!-- Getting Started -->
+            <section id="setup" class="section">
+                <h2>🚀 Getting Started</h2>
                 
-                <div class="image-placeholder">
-                    <h3>📈 User Study Results</h3>
-                    <p>Replace this with your user study results figure (Fig. 7 from paper)</p>
+                <h3>System Requirements</h3>
+                <div class="warning-box">
+                    <strong>⚠️ Display Requirements:</strong> This application is optimized for 2K displays (2560×1440). 
+                    Other resolutions may result in layout issues.
                 </div>
 
-                <h3>Key Findings</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #4caf50;">
-                        <strong>Effectiveness</strong>
-                        <p>Users successfully identified and validated meaningful features, with high ratings for all system components.</p>
-                    </div>
-                    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #2196f3;">
-                        <strong>Usability</strong>
-                        <p>Average score of 4.5/5 for system usability, with participants finding the workflow intuitive and engaging.</p>
-                    </div>
-                    <div style="background: #fff3e0; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #ff9800;">
-                        <strong>Discovery</strong>
-                        <p>Interactive exploration facilitated serendipitous discovery of unexpected feature properties and behaviors.</p>
-                    </div>
+                <h3>Installation & Setup</h3>
+                
+                <h4>1. Backend Setup</h4>
+                <div class="code-block">cd backend
+python run.py
+# Backend will run on http://localhost:5000</div>
+
+                <h4>2. Port Mapping (Required)</h4>
+                <div class="code-block"># Map backend's port 5000 to frontend's expected port 6006
+ssh -L 6006:localhost:5000 localhost
+# Keep this terminal open while using the system</div>
+
+                <h4>3. Frontend Setup</h4>
+                <div class="code-block">cd frontend
+npm run dev
+# Frontend will run on http://localhost:3000</div>
+
+                <div class="tip-box">
+                    <strong>💡 Quick Check:</strong> Open <code>http://localhost:3000</code> in your browser. 
+                    You should see the ConceptViz interface load successfully.
                 </div>
             </section>
 
-            <!-- Paper Information -->
-            <section id="paper" class="section">
-                <div class="paper-info">
-                    <h3>📄 Paper Information</h3>
-                    <div class="paper-meta">
-                        <div class="meta-item">
-                            <strong>Conference:</strong>
-                            IEEE VIS 2025 (Submission)
-                        </div>
-                        <div class="meta-item">
-                            <strong>Category:</strong>
-                            Research - Application/Design Study
-                        </div>
-                        <div class="meta-item">
-                            <strong>Keywords:</strong>
-                            LLMs, Interpretability, Visual Analytics
-                        </div>
-                        <div class="meta-item">
-                            <strong>Submission ID:</strong>
-                            1254
-                        </div>
-                    </div>
-                </div>
+        <!-- Tutorial -->
+            <section id="tutorial" class="section">
+                <h2>📖 Complete Tutorial: Exploring Superhero Features</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    Follow this comprehensive example to explore superhero-related concepts in Large Language Models using ConceptViz's 
+                    <strong>Identification → Interpretation → Validation</strong> workflow. This tutorial demonstrates how to discover, 
+                    analyze, and validate meaningful concept representations in LLMs.
+                </p>
 
-                <div class="authors">
-                    <h3>Authors</h3>
-                    <p class="author-list">
-                        <!-- 在这里添加你的作者信息 -->
-                        [Author Names] - [Institution]
+                <!-- Interactive Demo Section -->
+                <div class="demo-callout" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;">
+                    <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🎮 Interactive Demo</h3>
+                    <p style="margin: 0 0 1rem 0; font-size: 1.1rem;">
+                        Experience the complete workflow hands-on with our live demonstration:
                     </p>
+                    <a href="http://47.251.83.178:3000/" target="_blank" 
+                       style="display: inline-block; background: white; color: #667eea; padding: 0.75rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 1.1rem; margin: 0.5rem 0;">
+                        🚀 Launch Interactive Demo
+                    </a>
+                    <p style="margin: 1rem 0 0 0; font-size: 0.95rem; opacity: 0.9;">
+                        💡 <strong>Tip:</strong> Open the demo in a separate tab and follow along with the tutorial steps below to see each visualization fill in progressively!
+                    </p>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem; font-size: 0.9rem;">
+                        <strong>📋 Demo Note:</strong> This demonstration uses pre-computed data from the superhero analysis for easy exploration. 
+                        For full functionality with custom queries and models, please deploy ConceptViz locally following our 
+                        <a href="#setup" style="color: #ffd700; text-decoration: underline;">installation guide</a>.
+                    </div>
                 </div>
 
-                <div style="text-align: center; margin: 2rem 0;">
-                    <a href="#" class="btn btn-primary">Download Paper</a>
-                    <a href="#" class="btn btn-secondary">View Supplementary Materials</a>
+                <!-- Step 1 -->
+                <div id="step1" class="tutorial-step">
+                    <div class="step-number">1</div>
+                    <h4>🔍 Concept Query View - Define Your Concept</h4>
+                    
+                    <p><strong>What you'll do:</strong> Start by querying "superhero" to explore superhero-related features in the model.</p>
+                                        <p><strong>🎮 Try it:</strong> <a href="http://47.251.83.178:3000/" target="_blank">Launch the demo</a> and enter "superhero" in the query box to begin.</p>
+                    
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/A1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">Query optimization: Enter "superhero" and observe system suggestions for query refinement</div>
+                    </div>
+                    
+                    <ul class="substeps">
+                        <li><strong>Enter your concept:</strong> Type "superhero" in the query input field</li>
+                        <li><strong>Observe optimization:</strong> The system automatically suggests query improvements based on semantic analysis</li>
+                        <li><strong>Model selection:</strong> Use the dropdown menu to switch between different base models if needed</li>
+                    </ul>
+
+                    <div class="media-container">
+                        <img src="materials/Amodel.png" alt="Model selection dropdown">
+                        <div class="media-caption">Model selection: Choose from available models in the dropdown menu</div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>💡 Pro Tip:</strong> The system's query optimization helps refine ambiguous concepts. For "superhero", 
+                        it might suggest more specific terms like "superhero characters and narratives" to improve feature matching.
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="step2" class="tutorial-step">
+                    <div class="step-number">2</div>
+                    <h4>🎯 SAE Discovery View - Find Relevant Models</h4>
+                    
+                    <p><strong>What you'll do:</strong> Select the most relevant SAE model based on concept-relevance metrics across different layers.</p>
+                    <p><strong>🎮 Try it:</strong> <a href="http://47.251.83.178:3000/" target="_blank">In the demo</a>, examine the layer rankings and click on layer 11 to load the corresponding SAE.</p>
+
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/B1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">SAE selection: Choose the most relevant SAE model for superhero concepts</div>
+                    </div>
+                    
+                    <ul class="substeps">
+                        <li><strong>Review layer rankings:</strong> Examine the heat map showing concept relevance across all network layers</li>
+                        <li><strong>Identify optimal layers:</strong> Look for layers with the highest relevance scores (darker blue bars)</li>
+                        <li><strong>Select SAE model:</strong> Click on the interested layer to load the corresponding SAE</li>
+                        <li><strong>Proceed to exploration:</strong> Move to feature exploration once the SAE is loaded</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>💡 Advanced Tip:</strong> Click on the "Metrics" column header to access additional pre-computed SAE metrics 
+                        for more detailed model comparison and custom selection criteria.
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="step3" class="tutorial-step">
+                    <div class="step-number">3</div>
+                    <h4>🗺️ Feature Explorer View - Navigate the Semantic Space</h4>
+                    
+                    <p><strong>What you'll do:</strong> Explore the 2D semantic space to identify superhero-related features and understand their clustering patterns.</p>
+                    <p><strong>🎮 Try it:</strong> <a href="http://47.251.83.178:3000/" target="_blank">In the demo</a>, navigate the 2D visualization and use the sidebar to explore features ranked by similarity to your superhero query, and select the top feature 6610.</p>
+
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/C2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">Feature selection: Navigate the semantic space and select features of interest</div>
+                    </div>
+                    
+                    <ul class="substeps">
+                        <li><strong>Navigate the visualization:</strong> Pan and zoom to explore different semantic regions</li>
+                        <li><strong>Identify concept clusters:</strong> Look for areas where superhero-relevant features (blue points) concentrate</li>
+                        <li><strong>Select features:</strong> Click on individual feature points to examine their details</li>
+                        <li><strong>Use semantic labels:</strong> Reference cluster topic labels like "individuals", "power", or "spiritual"</li>
+                    </ul>
+
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/C1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">Sidebar exploration: Use the expandable sidebar to browse features ranked by similarity</div>
+                    </div>
+
+                    <ul class="substeps">
+                        <li><strong>Expand sidebar:</strong> Open the left sidebar to see features ranked by similarity to your query</li>
+                        <li><strong>Scroll through rankings:</strong> Browse features ordered by relevance scores</li>
+                        <li><strong>Observe highlighting:</strong> Notice how the main view highlights the currently focused feature in red</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>💡 Navigation Strategy:</strong> Focus on the darker blue points in the main visualization - 
+                        these represent features most relevant to your query. Use the sidebar to explore the complete top-K feature 
+                        rankings and quickly jump to specific highly-ranked features.
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div id="step4" class="tutorial-step">
+                    <div class="step-number">4</div>
+                    <h4>🔬 Feature Details View - Deep Dive Analysis</h4>
+                    
+                    <p><strong>What you'll do:</strong> Examine detailed semantic information about selected superhero-related features.</p>
+                    <p><strong>🎮 Try it:</strong> <a href="http://47.251.83.178:3000/" target="_blank">In the demo</a>, click on a feature point to open the detailed analysis panel and examine vocabulary projections and activation patterns. Don't forget the Button 'VALIDATE'.</p>
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/D1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">Feature analysis: Examine vocabulary projections, activation patterns, and explanations</div>
+                    </div>
+                    
+                    <ul class="substeps">
+                        <li><strong>Read feature explanations:</strong> Review the automated description (e.g., "references to superhero characters and their narratives")</li>
+                        <li><strong>Examine vocabulary space:</strong> Check which tokens this feature most strongly promotes or suppresses in the model's predictions</li>
+                        <li><strong>Analyze activation patterns:</strong> Use the activation-similarity matrix to identify potential explanation discrepancies</li>
+                        <li><strong>Review token statistics:</strong> Study the maximum activation tokens to understand feature behavior</li>
+                        <li><strong>Identify anomalies:</strong> Look for high-activation samples with low semantic similarity to the explanation</li>
+                    </ul>
+                </div>
+
+                <!-- Step 5 -->
+                <div id="step5" class="tutorial-step">
+                    <div class="step-number">5</div>
+                    <h4>⚡ Input Activation View - Test with Custom Inputs</h4>
+                    
+                    <p><strong>What you'll do:</strong> Validate feature behavior by testing with custom superhero-related text inputs.</p>
+                    <p><strong>🎮 Try it:</strong> <a href="http://47.251.83.178:3000/" target="_blank">In the demo</a>, test custom superhero inputs to see token activations and co-activating features (Unfortunately, the data has been preset, please feel free to enter).</p>
+
+                    <div class="tip-box">
+                        <strong>💡 Before Testing:</strong> Click the "Validation" button in the Feature Analysis view to add the current 
+                        feature to your test history. This tells the system which feature to validate during input testing.
+                    </div>
+                    
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/E1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">Custom input testing: Test feature responses to superhero-related prompts and discover co-activating features</div>
+                    </div>
+                    
+                    <ul class="substeps">
+                        <li><strong>Enter test sentences:</strong> Type superhero-related text like "My favorite hero is Batman"</li>
+                        <li><strong>Observe token activations:</strong> See which words trigger the strongest feature responses</li>
+                        <li><strong>Select interesting tokens:</strong> Click on tokens with high activation (e.g., "Superman", "Batman")</li>
+                        <li><strong>Discover co-activating features:</strong> System highlights other features that respond to selected tokens</li>
+                        <li><strong>Switch between features:</strong> Use the test history dropdown to compare different feature responses</li>
+                    </ul>
+
+                    <div class="comparison-container">
+                        <div class="comparison-item">
+                            <img src="materials/Eold.png" alt="Feature Explorer before token selection">
+                            <div class="media-caption">Before: Initial Feature Explorer view</div>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="materials/Enew.png" alt="Feature Explorer after token selection">
+                            <div class="media-caption">After: Highlighted co-activating features using bubble sets and red triangles</div>
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>📝 Feature Discovery:</strong> When you select tokens like "Superman", the system reveals other features 
+                        that also activate for superhero names, helping you discover semantically related feature sets and understand 
+                        the model's internal representation of heroic concepts.
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div id="step6" class="tutorial-step">
+                    <div class="step-number">6</div>
+                    <h4>🎛️ Output Steering View - Causal Validation</h4>
+                    
+                    <p><strong>What you'll do:</strong> Verify causal relationships by manipulating feature activations and observing their impact on model outputs (Sorry, we also have pre-made data here). </p>
+                    <p><strong>🎮 Try it:</strong> <a href="http://47.251.83.178:3000/" target="_blank">In the demo</a>, set up steering prompts and adjust activation sliders to observe how feature manipulation affects text generation.</p>
+
+                    <div class="media-container">
+                        <video controls width="100%">
+                            <source src="materials/F1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="media-caption">Activation steering: Control feature influence and observe effects on text generation</div>
+                    </div>
+                    
+                    <ul class="substeps">
+                        <li><strong>Set up steering prompt:</strong> Enter an incomplete sentence like "My favorite hero is"</li>
+                        <li><strong>Configure steering strength:</strong> Adjust sliders to set different activation levels (positive/negative)</li>
+                        <li><strong>Generate completions:</strong> Observe how different steering strengths affect the output</li>
+                        <li><strong>Compare results:</strong> Analyze differences between steered and unsteered generations</li>
+                        <li><strong>Validate causality:</strong> Confirm that steering toward superhero features produces superhero-related completions</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Expected Results:</strong> With positive steering on superhero features, you should see completions like 
+                        "Dr. Strange" or "Spider Man". Negative steering should reduce superhero-related completions, demonstrating 
+                        the feature's causal influence on model behavior.
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>💡 Advanced Analysis:</strong> Test multiple prompts and steering strengths to build confidence in your 
+                        feature interpretations.
+                    </div>
+                </div>
+
+                <div class="note-box" style="margin-top: 3rem;">
+                    <strong>🎯 Tutorial Summary:</strong> You've now completed the full ConceptViz workflow! You've successfully:
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Identified superhero-related features through concept querying and SAE discovery</li>
+                        <li>Interpreted feature semantics through spatial exploration and detailed analysis</li>
+                        <li>Validated feature behavior through custom input testing and causal steering</li>
+                    </ul>
+                    This methodology can be applied to explore any concept of interest in Large Language Models.
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="section">
+                <h2>🆘 Troubleshooting</h2>
+                
+                <h3>Common Issues</h3>
+                
+                <div class="tutorial-step">
+                    <h4>❌ Frontend can't connect to backend</h4>
+                    <ul class="substeps">
+                        <li>Check if backend is running on port 5000</li>
+                        <li>Verify port mapping: <code>ssh -L 6006:localhost:5000 localhost</code></li>
+                        <li>Check firewall settings</li>
+                        <li>Try accessing <code>http://localhost:6006/api/health</code> directly</li>
+                    </ul>
+                </div>
+
+                <div class="tutorial-step">
+                    <h4>🖥️ Display issues (layout problems)</h4>
+                    <ul class="substeps">
+                        <li>Ensure you're using a 2K display (2560×1440)</li>
+                        <li>Set browser zoom to 100%</li>
+                        <li>Try fullscreen mode (F11)</li>
+                        <li>Clear browser cache and reload</li>
+                    </ul>
                 </div>
             </section>
         </main>
@@ -534,11 +768,11 @@
 
     <!-- Footer -->
     <footer class="footer container">
-        <p>&copy; 2025 ConceptViz. All rights reserved.</p>
+        <p>&copy; 2025 ConceptViz User Guide. For more information, see the project README.</p>
         <p style="margin-top: 0.5rem;">
-            <a href="#" style="color: #667eea; margin: 0 1rem;">GitHub</a>
-            <a href="#" style="color: #667eea; margin: 0 1rem;">Paper</a>
-            <a href="#" style="color: #667eea; margin: 0 1rem;">Contact</a>
+            <a href="#" style="color: #667eea; margin: 0 1rem;">GitHub Repository</a>
+            <a href="#" style="color: #667eea; margin: 0 1rem;">Report Issues</a>
+            <a href="#" style="color: #667eea; margin: 0 1rem;">Documentation</a>
         </p>
     </footer>
 
@@ -577,6 +811,27 @@
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             observer.observe(section);
+        });
+
+        // Add progress indicator for tutorial steps
+        let currentStep = 1;
+        const totalSteps = 6;
+        
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            // You can add a progress bar here if needed
+        }
+
+        // Highlight current step in navigation
+        window.addEventListener('scroll', () => {
+            const steps = document.querySelectorAll('[id^="step"]');
+            steps.forEach((step, index) => {
+                const rect = step.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom > 100) {
+                    currentStep = index + 1;
+                    updateProgress();
+                }
+            });
         });
     </script>
 </body>

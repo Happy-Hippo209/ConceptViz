@@ -57,6 +57,12 @@ If you already cloned the repository, initialize submodules:
     ```
     ***
 ### Running the Application
+#### 🔧 Port Configuration
+- **Backend Server**: Runs on port `5000`
+- **Frontend API Endpoint**: Configured to read from port `6006`
+- **Frontend Dev Server**: Runs on port `3000`
+
+> **⚠️ Known Issue**: The frontend is currently hardcoded to fetch data from port `6006` instead of the backend's actual port `5000`. This is a legacy configuration that needs to be addressed.
 1. **Start the Backend**
     ```bash
     cd backend
@@ -128,7 +134,7 @@ Residual stream activations across all transformer layers
 
 ## 🔗 Links
 
-🌐 Project Website: https://happy-hippo209.github.io/ConceptViz/
+🌐 Project Tutorial Website: https://happy-hippo209.github.io/ConceptViz/
 
 📧 Contact: lihaoxuan@zju.edu.cn
 
